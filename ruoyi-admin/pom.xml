@@ -67,6 +67,12 @@
             <artifactId>ruoyi-generator</artifactId>
         </dependency>
 
+        <!--信息记录管理-->
+        <dependency>
+            <groupId>com.ruoyi</groupId>
+            <artifactId>zym-information</artifactId>
+        </dependency>
+
     </dependencies>
 
     <build>

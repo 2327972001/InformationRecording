@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('产品列表列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>弹性IP：</label>
+                                <input type="text" name="elasticip"/>
+                            </li>
+                            <li>
+                                <label>备注：</label>
+                                <input type="text" name="note"/>
+                            </li>
+                            <li>
+                                <label>带宽：</label>
+                                <input type="text" name="bandwidth"/>
+                            </li>
+                            <li>
+                                <label>地区：</label>
+                                <input type="text" name="region"/>
+                            </li>
+                            <li>
+                                <label>状态：</label>
+                                <select name="status" th:with="type=${@dict.getType('zym_cp_status')}">
+                                    <option value="">所有</option>
+                                    <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                                </select>
+                            </li>
+                            <li>
+                                <label>项目类别：</label>
+                                <input type="text" name="category"/>
+                            </li>
+                            <li>
+                                <label>账号：</label>
+                                <input type="text" name="username"/>
+                            </li>
+                            <li>
+                                <label>开始时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择开始时间" name="starttime"/>
+                            </li>
+                            <li>
+                                <label>到期时间：</label>
+                                <input type="text" class="time-input" placeholder="请选择到期时间" name="endtime"/>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="product:manager:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="product:manager:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="product:manager:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="product:manager:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('product:manager:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('product:manager:remove')}]];
+        var statusDatas = [[${@dict.getType('zym_cp_status')}]];
+        var prefix = ctx + "product/manager";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "产品列表",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '商品id',
+                    visible: false
+                },
+                {
+                    field: 'elasticip',
+                    title: '弹性IP'
+                },
+                {
+                    field: 'note',
+                    title: '备注'
+                },
+                {
+                    field: 'bandwidth',
+                    title: '带宽'
+                },
+                {
+                    field: 'region',
+                    title: '地区'
+                },
+                {
+                    field: 'status',
+                    title: '状态',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(statusDatas, value);
+                    }
+                },
+                {
+                    field: 'category',
+                    title: '项目类别'
+                },
+                {
+                    field: 'username',
+                    title: '账号'
+                },
+                {
+                    field: 'starttime',
+                    title: '开始时间'
+                },
+                {
+                    field: 'endtime',
+                    title: '到期时间'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
