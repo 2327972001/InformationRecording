@@ -7,6 +7,45 @@
      <input type="hidden" id="rowIds">
      <div class="container-div">
 		<div class="row">
+			<div class="col-sm-12 search-collapse">
+				<form id="formId">
+					<div class="select-list">
+						<ul>
+							<li>
+								<label>弹性IP：</label>
+								<input type="text" name="elasticip"/>
+							</li>
+							<li>
+								<label>备注：</label>
+								<input type="text" name="note"/>
+							</li>
+							<li>
+								<label>带宽：</label>
+								<input type="text" name="bandwidth"/>
+							</li>
+							<li>
+								<label>地区：</label>
+								<input type="text" name="region"/>
+							</li>
+							<li>
+								<label>状态：</label>
+								<select name="status" th:with="type=${@dict.getType('zym_cp_status')}">
+									<option value="">所有</option>
+									<option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+								</select>
+							</li>
+							<li>
+								<label>项目类别：</label>
+								<input type="text" name="category"/>
+							</li>
+							<li>
+								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+								<a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+							</li>
+						</ul>
+					</div>
+				</form>
+			</div>
 			<div class="col-sm-12 select-table table-striped">
 				<table id="bootstrap-table"></table>
 			</div>
