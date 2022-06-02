@@ -58,7 +58,7 @@
                 <label class="col-sm-3 control-label is-required">开始时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="starttime" th:value="${#dates.format(zymProduct.starttime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="starttime" th:value="${#dates.format(zymProduct.starttime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <label class="col-sm-3 control-label is-required">到期时间：</label>
                 <div class="col-sm-8">
                     <div class="input-group date">
-                        <input name="endtime" th:value="${#dates.format(zymProduct.endtime, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
+                        <input name="endtime" th:value="${#dates.format(zymProduct.endtime, 'yyyy-MM-dd HH:mm:ss')}" class="form-control" placeholder="yyyy-MM-dd" type="text" required>
                         <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                     </div>
                 </div>
@@ -89,13 +89,13 @@
         }
 
         $("input[name='starttime']").datetimepicker({
-            format: "yyyy-mm-dd",
+            format: "yyyy-mm-dd HH:mm:ss",
             minView: "month",
             autoclose: true
         });
 
         $("input[name='endtime']").datetimepicker({
-            format: "yyyy-mm-dd",
+            format: "yyyy-mm-dd HH:mm:ss",
             minView: "month",
             autoclose: true
         });
