@@ -4,6 +4,13 @@ import java.util.Date;
 import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.domain.ZymClassification;
+import com.ruoyi.domain.ZymInfo;
+import com.ruoyi.domain.ZymProduct;
+import com.ruoyi.service.IZymClassificationService;
+import com.ruoyi.service.IZymInfoService;
+import com.ruoyi.service.IZymProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,6 +49,15 @@ public class SysIndexController extends BaseController
 
     @Autowired
     private SysPasswordService passwordService;
+
+    @Autowired
+    private IZymProductService zymProductService;
+
+    @Autowired
+    private IZymClassificationService zymClassificationService;
+
+    @Autowired
+    private IZymInfoService zymInfoService;
 
     // 系统首页
     @GetMapping("/index")
@@ -131,6 +147,26 @@ public class SysIndexController extends BaseController
     public String main(ModelMap mmap)
     {
         mmap.put("version", RuoYiConfig.getVersion());
+
+        //统计类别数量
+        mmap.put("ClassificationSize",zymClassificationService.selectZymClassificationList(new ZymClassification()).size());
+        //统计产品数量
+        List<ZymProduct> zymProductList = zymProductService.selectZymProductList(new ZymProduct());
+        mmap.put("ProductSize",zymProductList.size());
+        int productSizeY = 0;
+        int productSizeN = 0;
+        for (ZymProduct zymProduct : zymProductList) {
+            if(zymProduct.getUid()!=0){
+                productSizeY++;
+            }else{
+                productSizeN++;
+            }
+        }
+        mmap.put("ProductSizeY",productSizeY);
+        mmap.put("ProductSizeN",productSizeN);
+        //统计客户数量
+        mmap.put("InfoSize",zymInfoService.selectZymInfoList(new ZymInfo()).size());
+
         return "main";
     }
 
