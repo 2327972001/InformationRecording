@@ -44,7 +44,7 @@
                 <label class="col-sm-3 control-label is-required">项目类别：</label>
                 <div class="col-sm-8">
                     <select name="cid" class="form-control">
-                        <option th:each="Classification : ${ClassificationList}" th:text="${Classification.name}" th:value="${Classification.id}" th:selected="${Classification.id} eq ${zymProduct.cid}"></option>
+                        <option th:each="Classification : ${ClassificationList}" th:text="${Classification.name}" th:value="${Classification.id}" th:selected="${Classification.name} eq ${zymProduct.category}"></option>
                     </select>
                 </div>
             </div>
