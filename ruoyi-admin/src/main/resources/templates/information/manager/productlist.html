@@ -51,9 +51,9 @@
         </div>
 
         <div class="btn-group-sm" id="toolbar" role="group">
-            <!--a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="product:manager:add">
+            <a class="btn btn-success" onclick="add()" shiro:hasPermission="product:manager:add">
                 <i class="fa fa-plus"></i> 添加
-            </a-->
+            </a>
             <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="product:manager:edit">
                 <i class="fa fa-edit"></i> 修改
             </a>
@@ -152,10 +152,31 @@
             return;
         }
         $.modal.confirm("确认要移除选中的" + rows.length + "条数据吗?", function() {
-            var url = prefix + "/detach/" + [[${userid}]];
+            var url = prefix + "/detach/";
             var data = { "ids": rows.join() };
             $.operate.submit(url, "get", "json", data);
         });
+    }
+
+    function add(){
+        var options = {
+            title: '选择用户',
+            url: prefix + "/parent",
+            callBack: doSubmit
+        };
+        $.modal.openOptions(options);
+    }
+
+    function doSubmit(index, layero){
+        var rows = layero.find("iframe")[0].contentWindow.getSelections();
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var url = prefix + "/adduserid";
+        var data = { "ids": rows.join(),"uid":[[${userid}]] };
+        $.operate.submit(url, "post", "json", data);
+        $.modal.close(index);
     }
 </script>
 </body>
