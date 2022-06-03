@@ -7,6 +7,8 @@ import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.common.utils.bean.BeanValidators;
 import com.ruoyi.common.utils.security.Md5Utils;
+import com.ruoyi.domain.ZymClassification;
+import com.ruoyi.mapper.ZymClassificationMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class ZymProductServiceImpl implements IZymProductService
 
     @Autowired
     protected Validator validator;
+    
+    @Autowired
+    private ZymClassificationMapper zymClassificationMapper;
 
     /**
      * 查询产品列表
@@ -109,7 +114,7 @@ public class ZymProductServiceImpl implements IZymProductService
 
     /**
      * 导入产品数据
-     *
+     * @deprecated 如果导入的产品数据中没有定义产品类别，则自动分配到产品未分配的所有类别
      * @param zymProductList 产品数据列表
      * @param isUpdateSupport 是否更新支持，如果已存在，则进行更新数据
      * @return 结果
@@ -131,13 +136,50 @@ public class ZymProductServiceImpl implements IZymProductService
                 // 验证是否存在这条数据
                 ZymProduct zymProduct = new ZymProduct();
                 zymProduct.setElasticip(product.getElasticip());
+                if(product.getCategory().length() != 0){
+                    zymProduct.setCategory(product.getCategory());
+                }
                 List<ZymProduct> p = zymProductMapper.selectZymProductList(zymProduct);
+                p.forEach(System.out :: println);
                 if (p.size()==0)
                 {
                     BeanValidators.validateWithException(validator, product);
-                    this.insertZymProduct(product);
-                    successNum++;
-                    successMsg.append("<br/>" + successNum + "、产品 " + product.getElasticip() + " 导入成功");
+                    // 判断是否写了分类
+                    if (product.getCategory().length() == 0){
+                        List<ZymClassification> classificationList = zymClassificationMapper.selectZymClassificationList(new ZymClassification());
+                        for (ZymClassification zymClassification : classificationList) {
+                            product.setCid(zymClassification.getId());
+                            product.setCategory(zymClassification.getName());
+                            this.insertZymProduct(product);
+                            successNum++;
+                            successMsg.append("<br/>" + successNum + "、" + product.getCategory() + " 下的产品 " + product.getElasticip() + " 导入成功");
+                        }
+                    }else{
+                        this.insertZymProduct(product);
+                        successNum++;
+                        successMsg.append("<br/>" + successNum + "、" + product.getCategory() + " 下的产品 " + product.getElasticip() + " 导入成功");
+                    }
+                }
+                else if (product.getCategory().length() == 0)
+                {
+                    List<ZymClassification> classificationList = zymClassificationMapper.selectZymClassificationList(new ZymClassification());
+                    for (ZymClassification zymClassification : classificationList) {
+                        //过滤已存在的数据
+                        ZymProduct zymProduct1 = new ZymProduct();
+                        zymProduct1.setElasticip(product.getElasticip());
+                        zymProduct1.setCategory(zymClassification.getName());
+                        int num = zymProductMapper.selectZymProductList(zymProduct1).size();
+                        if(num == 0){
+                            product.setCategory(zymClassification.getName());
+                            this.insertZymProduct(product);
+                            successNum++;
+                            successMsg.append("<br/>" + successNum + "、" + product.getCategory() + " 下的产品 " + product.getElasticip() + " 导入成功");
+                        }
+                    }
+                    if(successNum == 0){
+                        successNum++;
+                        successMsg.append("<br/>产品 " + product.getElasticip() + " 已存在全部类目中");
+                    }
                 }
                 else if (isUpdateSupport)
                 {
@@ -148,8 +190,13 @@ public class ZymProductServiceImpl implements IZymProductService
                 }
                 else
                 {
-                    failureNum++;
-                    failureMsg.append("<br/>" + failureNum + "、产品 " + product.getElasticip() + " 已存在");
+                    if(product.getCategory() != null){
+                        failureNum++;
+                        failureMsg.append("<br/>" + failureNum + "、"+product.getCategory()+"类目下的产品 " + product.getElasticip() + " 已存在");
+                    }else{
+                        failureNum++;
+                        failureMsg.append("<br/>" + failureNum + "、产品 " + product.getElasticip() + " 已存在");
+                    }
                 }
             }
             catch (Exception e)
