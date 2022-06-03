@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.mapper.ZymClassificationMapper">
+    
+    <resultMap type="ZymClassification" id="ZymClassificationResult">
+        <result property="id"    column="id"    />
+        <result property="name"    column="name"    />
+        <result property="note"    column="note"    />
+        <result property="number"    column="number"    />
+    </resultMap>
+
+    <sql id="selectZymClassificationVo">
+        select id, name, note, number from zym_classification
+    </sql>
+
+    <select id="selectZymClassificationList" parameterType="ZymClassification" resultMap="ZymClassificationResult">
+        <include refid="selectZymClassificationVo"/>
+        <where>  
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="note != null  and note != ''"> and note = #{note}</if>
+            <if test="number != null "> and number = #{number}</if>
+        </where>
+    </select>
+    
+    <select id="selectZymClassificationById" parameterType="Integer" resultMap="ZymClassificationResult">
+        <include refid="selectZymClassificationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertZymClassification" parameterType="ZymClassification" useGeneratedKeys="true" keyProperty="id">
+        insert into zym_classification
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null">name,</if>
+            <if test="note != null">note,</if>
+            <if test="number != null">number,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null">#{name},</if>
+            <if test="note != null">#{note},</if>
+            <if test="number != null">#{number},</if>
+         </trim>
+    </insert>
+
+    <update id="updateZymClassification" parameterType="ZymClassification">
+        update zym_classification
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="name != null">name = #{name},</if>
+            <if test="note != null">note = #{note},</if>
+            <if test="number != null">number = #{number},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteZymClassificationById" parameterType="Integer">
+        delete from zym_classification where id = #{id}
+    </delete>
+
+    <delete id="deleteZymClassificationByIds" parameterType="String">
+        delete from zym_classification where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>
