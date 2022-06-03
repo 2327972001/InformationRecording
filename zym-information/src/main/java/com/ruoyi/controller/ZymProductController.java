@@ -180,8 +180,8 @@ public class ZymProductController extends BaseController
     {
         List<ZymProduct> zymProductList = zymProductService.selectZymProductList(new ZymProduct());
         for (ZymProduct product : zymProductList) {
-            if(zymProduct.getElasticip().equals(product.getElasticip())){
-                return error("该弹性IP已存在");
+            if(zymProduct.getElasticip().equals(product.getElasticip()) && zymProduct.getCid().equals(product.getCid())){
+                return error("弹性IP:"+product.getElasticip()+"在"+product.getCategory()+"类别中已存在");
             }
         }
         zymProduct.setCategory(zymClassificationService.selectZymClassificationById(zymProduct.getCid()).getName());
