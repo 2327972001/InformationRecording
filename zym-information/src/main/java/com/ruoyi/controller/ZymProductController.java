@@ -279,6 +279,10 @@ public class ZymProductController extends BaseController
             ZymProduct zymProduct = new ZymProduct();
             zymProduct.setId(Integer.parseInt(s));
             zymProduct.setUid(0);
+            zymProduct.setStarttime(null);
+            zymProduct.setEndtime(null);
+            zymProduct.setStatus("0");
+            zymProduct.setUsername(null);
             zymProductService.updateZymProduct(zymProduct);
         }
         return toAjax(true);
