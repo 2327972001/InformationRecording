@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruoyi.domain.ZymClassification;
 import com.ruoyi.domain.ZymProduct;
+import com.ruoyi.service.IZymClassificationService;
 import com.ruoyi.service.IZymProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,9 @@ public class ZymInfoController extends BaseController
 
     @Autowired
     private IZymProductService zymProductService;
+
+    @Autowired
+    private IZymClassificationService zymClassificationService;
 
     @RequiresPermissions("information:manager:view")
     @GetMapping()
@@ -158,6 +162,7 @@ public class ZymInfoController extends BaseController
     public String productlist(@PathVariable("id") Integer id, ModelMap mmap)
     {
         mmap.addAttribute("userid", id);
+        mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/productlist";
     }
 

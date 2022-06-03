@@ -35,7 +35,10 @@
                         </li>
                         <li>
                             <label>项目类别：</label>
-                            <input type="text" name="category"/>
+                            <select name="category">
+                                <option value="">所有</option>
+                                <option th:each="Classification : ${ClassificationList}" th:text="${Classification.name}" th:value="${Classification.name}"></option>
+                            </select>
                         </li>
                         <li>
                             <label>账号：</label>
