@@ -66,6 +66,14 @@ public class ZymClassificationController extends BaseController
             zymClassification1.setId(classification.getId());
             zymClassification1.setNumber(zymProductService.selectZymProductList(zymProduct).size());
             zymClassificationService.updateZymClassification(zymClassification1);
+            Integer number = zymProductService.selectZymProductList(zymProduct).size();
+            //获取未使用的产品数量
+            zymProduct.setUid(0);
+            classification.setE_number(zymProductService.selectZymProductList(zymProduct).size());
+            //获取已使用的产品数量
+            number = number - zymProductService.selectZymProductList(zymProduct).size();
+            System.out.println(number);
+            classification.setS_number(number);
         }
         return getDataTable(list);
     }

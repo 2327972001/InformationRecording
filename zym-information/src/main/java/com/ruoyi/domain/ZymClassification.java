@@ -30,7 +30,29 @@ public class ZymClassification extends BaseEntity
     @Excel(name = "数量")
     private Integer number;
 
-    public void setId(Integer id) 
+    /** 已使用数量 */
+    private Integer s_number;
+
+    /** 未使用数量 */
+    private Integer e_number;
+
+    public Integer getS_number() {
+        return s_number;
+    }
+
+    public void setS_number(Integer s_number) {
+        this.s_number = s_number;
+    }
+
+    public Integer getE_number() {
+        return e_number;
+    }
+
+    public void setE_number(Integer e_number) {
+        this.e_number = e_number;
+    }
+
+    public void setId(Integer id)
     {
         this.id = id;
     }
