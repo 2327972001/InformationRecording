@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50734
 File Encoding         : 65001
 
-Date: 2022-06-03 00:03:31
+Date: 2022-06-03 14:42:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -411,7 +411,7 @@ CREATE TABLE `sys_dict_data` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_code`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COMMENT='字典数据表';
+) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=utf8 COMMENT='字典数据表';
 
 -- ----------------------------
 -- Records of sys_dict_data
@@ -448,6 +448,8 @@ INSERT INTO `sys_dict_data` VALUES ('29', '2', '失败', '1', 'sys_common_status
 INSERT INTO `sys_dict_data` VALUES ('100', '1', '正常', '0', 'zym_cp_status', null, null, 'Y', '0', 'admin', '2022-06-02 15:32:47', '', null, null);
 INSERT INTO `sys_dict_data` VALUES ('101', '2', '到期', '1', 'zym_cp_status', null, null, 'Y', '0', 'admin', '2022-06-02 15:32:58', '', null, null);
 INSERT INTO `sys_dict_data` VALUES ('102', '3', '停用', '22', 'zym_cp_status', null, null, 'Y', '0', 'admin', '2022-06-02 15:33:15', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('103', '1', '男', '0', 'zym_sex', null, null, 'Y', '0', 'admin', '2022-06-03 13:42:52', '', null, null);
+INSERT INTO `sys_dict_data` VALUES ('104', '2', '女', '1', 'zym_sex', null, null, 'Y', '0', 'admin', '2022-06-03 13:43:01', '', null, null);
 
 -- ----------------------------
 -- Table structure for sys_dict_type
@@ -465,7 +467,7 @@ CREATE TABLE `sys_dict_type` (
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`dict_id`),
   UNIQUE KEY `dict_type` (`dict_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 COMMENT='字典类型表';
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8 COMMENT='字典类型表';
 
 -- ----------------------------
 -- Records of sys_dict_type
@@ -481,6 +483,7 @@ INSERT INTO `sys_dict_type` VALUES ('8', '通知状态', 'sys_notice_status', '0
 INSERT INTO `sys_dict_type` VALUES ('9', '操作类型', 'sys_oper_type', '0', 'admin', '2022-06-02 14:11:47', '', null, '操作类型列表');
 INSERT INTO `sys_dict_type` VALUES ('10', '系统状态', 'sys_common_status', '0', 'admin', '2022-06-02 14:11:47', '', null, '登录状态列表');
 INSERT INTO `sys_dict_type` VALUES ('100', '产品状态', 'zym_cp_status', '0', 'admin', '2022-06-02 15:32:12', '', null, null);
+INSERT INTO `sys_dict_type` VALUES ('101', '客户性别', 'zym_sex', '0', 'admin', '2022-06-03 13:42:40', '', null, null);
 
 -- ----------------------------
 -- Table structure for sys_job
