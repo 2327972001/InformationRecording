@@ -118,6 +118,21 @@ public class ZymProductController extends BaseController
     }
 
     /**
+     * 导出客户内的产品列表
+     */
+    @RequiresPermissions("product:manager:export")
+    @Log(title = "产品列表", businessType = BusinessType.EXPORT)
+    @PostMapping("/p_export")
+    @ResponseBody
+    public AjaxResult p_export(Integer uid, ZymProduct zymProduct)
+    {
+        zymProduct.setUid(uid);
+        List<ZymProduct> list = zymProductService.selectZymProductList(zymProduct);
+        ExcelUtil<ZymProduct> util = new ExcelUtil<ZymProduct>(ZymProduct.class);
+        return util.exportExcel(list, "产品列表数据");
+    }
+
+    /**
      * 导入产品数据
      */
     @Log(title = "产品列表", businessType = BusinessType.IMPORT)
@@ -202,6 +217,19 @@ public class ZymProductController extends BaseController
         mmap.put("zymProduct", zymProduct);
         mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/edit";
+    }
+
+    /**
+     * 客户内的修改产品列表
+     */
+    @RequiresPermissions("product:manager:edit")
+    @GetMapping("/p_edit/{id}")
+    public String p_edit(@PathVariable("id") Integer id, ModelMap mmap)
+    {
+        ZymProduct zymProduct = zymProductService.selectZymProductById(id);
+        mmap.put("zymProduct", zymProduct);
+        mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
+        return prefix + "/p_edit";
     }
 
     /**
