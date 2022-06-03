@@ -941,15 +941,21 @@ CREATE TABLE `zym_info` (
   `wechat` varchar(20) DEFAULT NULL COMMENT '微信',
   `qq` varchar(20) DEFAULT NULL COMMENT 'QQ',
   `number` int(10) DEFAULT NULL COMMENT '数量',
+  `name` varchar(10) DEFAULT NULL COMMENT '姓名',
+  `sex` char(1) DEFAULT NULL COMMENT '性别',
+  `phone` varchar(20) DEFAULT NULL COMMENT '手机号',
+  `idcard` varchar(30) DEFAULT NULL COMMENT '身份证号',
+  `idisimg` varchar(100) DEFAULT NULL COMMENT '身份证正面',
+  `idbackimg` varchar(100) DEFAULT NULL COMMENT '身份证反面',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='信息记录管理';
 
 -- ----------------------------
 -- Records of zym_info
 -- ----------------------------
-INSERT INTO `zym_info` VALUES ('1', '123', '', 'z2327972001', '2327972001', '4');
-INSERT INTO `zym_info` VALUES ('2', '456', '', '17318062706', '3355691290', '2');
-INSERT INTO `zym_info` VALUES ('4', '456', '', '456', '456', '0');
+INSERT INTO `zym_info` VALUES ('1', '123', '', 'z2327972001', '2327972001', '4', null, null, null, null, null, null);
+INSERT INTO `zym_info` VALUES ('2', '456', '', '17318062706', '3355691290', '2', null, null, null, null, null, null);
+INSERT INTO `zym_info` VALUES ('4', '456', '', '456', '456', '0', null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for zym_product

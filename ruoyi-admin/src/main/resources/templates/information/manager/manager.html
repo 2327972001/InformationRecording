@@ -103,6 +103,15 @@
                     sortable: true
                 },
                 {
+                    title: '实名信息',
+                    align: 'center',
+                    formatter: function (value, row, index) {
+                        let actions = [];
+                        actions.push('<a href="javascript:;" onclick="idcardinfo(\'' + row.id + '\')">查看实名信息</a>');
+                        return actions.join('');
+                    }
+                },
+                {
                     title: '操作',
                     align: 'center',
                     formatter: function(value, row, index) {
@@ -125,6 +134,18 @@
             };
             $.modal.openOptions(options);
         }
+
+        function idcardinfo(id){
+            var btn = ['<i class="fa fa-close"></i> 点我关闭'];
+            var options = {
+                title: '实名信息',
+                url: prefix + "/idcard/" + id,
+                btn: btn,
+                callBack: doSubmit
+            };
+            $.modal.openOptions(options);
+        }
+
         function doSubmit(index){
             $.modal.close(index);
         }
