@@ -67,10 +67,12 @@ public class ZymProductController extends BaseController
         startPage();
         List<ZymProduct> list = zymProductService.selectZymProductList(zymProduct);
         for (ZymProduct product : list) {
-            if(product.getUid()!=0){
-                product.setFree("已使用");
+            if(product.getUid()==0){
+                product.setFree("0");
+                zymProductService.updateZymProduct(product);
             }else{
-                product.setFree("未使用");
+                product.setFree("1");
+                zymProductService.updateZymProduct(product);
             }
         }
         return getDataTable(list);

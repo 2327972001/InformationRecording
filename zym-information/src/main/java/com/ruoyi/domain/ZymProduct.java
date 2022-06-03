@@ -67,138 +67,140 @@ public class ZymProduct extends BaseEntity
     /** 空闲状态 */
     private String free;
 
-    public String getFree() {
-        return free;
-    }
-
-    public void setFree(String free) {
-        this.free = free;
-    }
-
     public void setId(Integer id)
     {
         this.id = id;
     }
 
-    public Integer getId() 
+    public Integer getId()
     {
         return id;
     }
-    public void setCid(Integer cid) 
+    public void setCid(Integer cid)
     {
         this.cid = cid;
     }
 
-    public Integer getCid() 
+    public Integer getCid()
     {
         return cid;
     }
-    public void setUid(Integer uid) 
+    public void setUid(Integer uid)
     {
         this.uid = uid;
     }
 
-    public Integer getUid() 
+    public Integer getUid()
     {
         return uid;
     }
-    public void setElasticip(String elasticip) 
+    public void setElasticip(String elasticip)
     {
         this.elasticip = elasticip;
     }
 
-    public String getElasticip() 
+    public String getElasticip()
     {
         return elasticip;
     }
-    public void setNote(String note) 
+    public void setNote(String note)
     {
         this.note = note;
     }
 
-    public String getNote() 
+    public String getNote()
     {
         return note;
     }
-    public void setBandwidth(String bandwidth) 
+    public void setBandwidth(String bandwidth)
     {
         this.bandwidth = bandwidth;
     }
 
-    public String getBandwidth() 
+    public String getBandwidth()
     {
         return bandwidth;
     }
-    public void setRegion(String region) 
+    public void setRegion(String region)
     {
         this.region = region;
     }
 
-    public String getRegion() 
+    public String getRegion()
     {
         return region;
     }
-    public void setStatus(String status) 
-    {
-        this.status = status;
-    }
-
-    public String getStatus() 
-    {
-        return status;
-    }
-    public void setCategory(String category) 
+    public void setCategory(String category)
     {
         this.category = category;
     }
 
-    public String getCategory() 
+    public String getCategory()
     {
         return category;
     }
-    public void setUsername(String username) 
+    public void setUsername(String username)
     {
         this.username = username;
     }
 
-    public String getUsername() 
+    public String getUsername()
     {
         return username;
     }
-    public void setStarttime(Date starttime) 
+    public void setStarttime(Date starttime)
     {
         this.starttime = starttime;
     }
 
-    public Date getStarttime() 
+    public Date getStarttime()
     {
         return starttime;
     }
-    public void setEndtime(Date endtime) 
+    public void setEndtime(Date endtime)
     {
         this.endtime = endtime;
     }
 
-    public Date getEndtime() 
+    public Date getEndtime()
     {
         return endtime;
+    }
+    public void setStatus(String status)
+    {
+        this.status = status;
+    }
+
+    public String getStatus()
+    {
+        return status;
+    }
+    public void setFree(String free)
+    {
+        this.free = free;
+    }
+
+    public String getFree()
+    {
+        return free;
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("id", getId())
-            .append("cid", getCid())
-            .append("uid", getUid())
-            .append("elasticip", getElasticip())
-            .append("note", getNote())
-            .append("bandwidth", getBandwidth())
-            .append("region", getRegion())
-            .append("status", getStatus())
-            .append("category", getCategory())
-            .append("username", getUsername())
-            .append("starttime", getStarttime())
-            .append("endtime", getEndtime())
-            .toString();
+                .append("id", getId())
+                .append("cid", getCid())
+                .append("uid", getUid())
+                .append("elasticip", getElasticip())
+                .append("note", getNote())
+                .append("bandwidth", getBandwidth())
+                .append("region", getRegion())
+                .append("category", getCategory())
+                .append("username", getUsername())
+                .append("starttime", getStarttime())
+                .append("endtime", getEndtime())
+                .append("status", getStatus())
+                .append("free", getFree())
+                .toString();
     }
 }

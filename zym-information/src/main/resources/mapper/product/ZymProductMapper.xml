@@ -17,10 +17,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="username"    column="username"    />
         <result property="starttime"    column="starttime"    />
         <result property="endtime"    column="endtime"    />
+        <result property="free"    column="free"    />
     </resultMap>
 
     <sql id="selectZymProductVo">
-        select id, cid, uid, elasticip, note, bandwidth, region, status, category, username, starttime, endtime from zym_product
+        select id, cid, uid, elasticip, note, bandwidth, region, status, category, username, starttime, endtime, free from zym_product
     </sql>
 
     <select id="selectZymProductList" parameterType="ZymProduct" resultMap="ZymProductResult">
@@ -37,6 +38,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
             <if test="starttime != null "> and starttime = #{starttime}</if>
             <if test="endtime != null "> and endtime = #{endtime}</if>
+            <if test="free != null and free!=''"> and free = #{free}</if>
         </where>
     </select>
     
@@ -59,6 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="username != null">username,</if>
             <if test="starttime != null">starttime,</if>
             <if test="endtime != null">endtime,</if>
+            <if test="free != null">free,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cid != null">#{cid},</if>
@@ -72,6 +75,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="username != null">#{username},</if>
             <if test="starttime != null">#{starttime},</if>
             <if test="endtime != null">#{endtime},</if>
+            <if test="free != null">#{free},</if>
          </trim>
     </insert>
 
@@ -89,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="username != null">username = #{username},</if>
             <if test="starttime != null">starttime = #{starttime},</if>
             <if test="endtime != null">endtime = #{endtime},</if>
+            <if test="free != null and free!=''">free = #{free},</if>
         </trim>
         where id = #{id}
     </update>
