@@ -116,9 +116,8 @@ public class ZymClassificationController extends BaseController
                 return error("该项目类别已存在");
             }
         }
-        zymClassificationService.insertZymClassification(zymClassification);
         //获取产品列表
-        ZymClassification zymClassification1 = new ZymClassification();
+        /*ZymClassification zymClassification1 = new ZymClassification();
         zymClassification1.setName(zymClassification.getName());
         List<ZymProduct> productsList = zymProductService.selectZymProductList(new ZymProduct());
         for (ZymProduct product : productsList) {
@@ -131,8 +130,8 @@ public class ZymClassificationController extends BaseController
             product.setEndtime(null);
             product.setStarttime(null);
             zymProductService.insertZymProduct(product);
-        }
-        return success();
+        }*/
+        return toAjax(zymClassificationService.insertZymClassification(zymClassification));
     }
 
     /**
