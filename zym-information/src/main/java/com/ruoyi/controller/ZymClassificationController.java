@@ -3,6 +3,7 @@ package com.ruoyi.controller;
 import java.util.List;
 
 import com.ruoyi.domain.ZymProduct;
+import com.ruoyi.mapper.ZymClassificationMapper;
 import com.ruoyi.service.IZymProductService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,7 +73,6 @@ public class ZymClassificationController extends BaseController
             classification.setE_number(zymProductService.selectZymProductList(zymProduct).size());
             //获取已使用的产品数量
             number = number - zymProductService.selectZymProductList(zymProduct).size();
-            System.out.println(number);
             classification.setS_number(number);
         }
         return getDataTable(list);
@@ -116,7 +116,23 @@ public class ZymClassificationController extends BaseController
                 return error("该项目类别已存在");
             }
         }
-        return toAjax(zymClassificationService.insertZymClassification(zymClassification));
+        zymClassificationService.insertZymClassification(zymClassification);
+        //获取产品列表
+        ZymClassification zymClassification1 = new ZymClassification();
+        zymClassification1.setName(zymClassification.getName());
+        List<ZymProduct> productsList = zymProductService.selectZymProductList(new ZymProduct());
+        for (ZymProduct product : productsList) {
+            product.setCid(zymClassificationService.selectZymClassificationList(zymClassification1).get(0).getId());
+            product.setCategory(zymClassification.getName());
+            //初始化数据
+            product.setUid(0);
+            product.setUsername(null);
+            product.setStatus("0");
+            product.setEndtime(null);
+            product.setStarttime(null);
+            zymProductService.insertZymProduct(product);
+        }
+        return success();
     }
 
     /**

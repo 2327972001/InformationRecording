@@ -18,7 +18,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectZymClassificationList" parameterType="ZymClassification" resultMap="ZymClassificationResult">
         <include refid="selectZymClassificationVo"/>
         <where>  
-            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="name != null  and name != ''"> and name = #{name}</if>
             <if test="note != null  and note != ''"> and note = #{note}</if>
             <if test="number != null "> and number = #{number}</if>
         </where>
