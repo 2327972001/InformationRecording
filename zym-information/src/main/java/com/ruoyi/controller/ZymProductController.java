@@ -88,6 +88,7 @@ public class ZymProductController extends BaseController
     {
         startPage();
         zymProduct.setUid(0);
+        zymProduct.setStatus("0");
         List<ZymProduct> list = zymProductService.selectZymProductList(zymProduct);
         return getDataTable(list);
     }
