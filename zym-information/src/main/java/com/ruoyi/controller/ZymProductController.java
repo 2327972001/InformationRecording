@@ -1,10 +1,9 @@
 package com.ruoyi.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.text.DateFormat;
+import java.util.*;
 
-import com.ruoyi.common.utils.StringUtils;
+import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.domain.ZymClassification;
 import com.ruoyi.domain.ZymProductExce;
 import com.ruoyi.service.IZymClassificationService;
@@ -277,14 +276,15 @@ public class ZymProductController extends BaseController
     {
         String[] idsList = ids.split(",");
         for (String s : idsList) {
-            ZymProduct zymProduct = new ZymProduct();
-            zymProduct.setId(Integer.parseInt(s));
+            ZymProduct zymProduct = zymProductService.selectZymProductById(Integer.parseInt(s));
+            zymProductService.deleteZymProductById(Integer.parseInt(s));
             zymProduct.setUid(0);
             zymProduct.setStarttime(null);
             zymProduct.setEndtime(null);
+            zymProduct.setFree("0");
             zymProduct.setStatus("0");
             zymProduct.setUsername(null);
-            zymProductService.updateZymProduct(zymProduct);
+            zymProductService.insertZymProduct(zymProduct);
         }
         return toAjax(true);
     }
@@ -363,5 +363,34 @@ public class ZymProductController extends BaseController
             }
         }
         return toAjax(true);
+    }
+
+    /**
+     * 一键增加时间
+     */
+    @RequiresPermissions("product:manager:edit")
+    @GetMapping("/addtime")
+    @ResponseBody
+    public AjaxResult addtime(Integer[] ids,Integer time)
+    {
+        for (Integer id : ids) {
+            ZymProduct zymProduct = new ZymProduct();
+            zymProduct.setId(id);
+            zymProduct.setStarttime(new Date());
+            if(time==1){
+                //当前时间加30天
+                zymProduct.setEndtime(DateUtils.addDays(new Date(),30));
+            }
+            if(time==2){
+                //当前时间加60天
+                zymProduct.setEndtime(DateUtils.addDays(new Date(),60));
+            }
+            if(time==3){
+                //当前时间加60天
+                zymProduct.setEndtime(DateUtils.addDays(new Date(),90));
+            }
+            zymProductService.updateZymProduct(zymProduct);
+        }
+        return success();
     }
 }

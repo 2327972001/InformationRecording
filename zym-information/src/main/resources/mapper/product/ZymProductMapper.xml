@@ -90,9 +90,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="region != null">region = #{region},</if>
             <if test="status != null">status = #{status},</if>
             <if test="category != null">category = #{category},</if>
-            <if test="username != null or endtime != ''">username = #{username},</if>
-            <if test="starttime != null or starttime != ''">starttime = #{starttime},</if>
-            <if test="endtime != null or endtime != ''">endtime = #{endtime},</if>
+            <if test="username != null">username = #{username},</if>
+            <if test="starttime != null">starttime = #{starttime},</if>
+            <if test="endtime != null">endtime = #{endtime},</if>
             <if test="free != null and free!=''">free = #{free},</if>
         </trim>
         where id = #{id}
