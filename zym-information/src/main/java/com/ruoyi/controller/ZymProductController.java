@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.ruoyi.common.utils.StringUtils;
 import com.ruoyi.domain.ZymClassification;
+import com.ruoyi.domain.ZymProductExce;
 import com.ruoyi.service.IZymClassificationService;
 import com.ruoyi.service.IZymInfoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -148,14 +149,14 @@ public class ZymProductController extends BaseController
     }
 
     /**
-     * 导入产品模板
+     * 导出产品模板
      */
     @RequiresPermissions("system:manager:view")
     @GetMapping("/importTemplate")
     @ResponseBody
     public AjaxResult importTemplate()
     {
-        ExcelUtil<ZymProduct> util = new ExcelUtil<ZymProduct>(ZymProduct.class);
+        ExcelUtil<ZymProductExce> util = new ExcelUtil<ZymProductExce>(ZymProductExce.class);
         return util.importTemplateExcel("产品数据");
     }
 
