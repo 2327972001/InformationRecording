@@ -63,6 +63,9 @@
             <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="product:manager:export">
                 <i class="fa fa-download"></i> 导出
             </a>
+            <a class="btn btn-success multiple disabled" onclick="oneswitch()" shiro:hasPermission="product:manager:oneswitch">
+                <i class="fa fa-refresh"></i> 一键切换
+            </a>
         </div>
         <div class="col-sm-12 select-table table-striped">
             <table id="bootstrap-table"></table>
@@ -160,7 +163,7 @@
 
     function add(){
         var options = {
-            title: '选择用户',
+            title: '选择产品',
             url: prefix + "/parent",
             callBack: doSubmit
         };
@@ -175,6 +178,30 @@
         }
         var url = prefix + "/adduserid";
         var data = { "ids": rows.join(),"uid":[[${userid}]] };
+        $.operate.submit(url, "post", "json", data);
+        $.modal.close(index);
+    }
+
+    function oneswitch(){
+        var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
+        if (rows.length == 0) {
+            $.modal.alertWarning("请至少选择一条记录");
+            return;
+        }
+        var options = {
+            title: '一键切换',
+            url: prefix + "/oneswitch?ids="+rows.join(),
+            callBack: doSubmit_oneswitch
+        };
+        $.modal.openOptions(options);
+    }
+
+    function doSubmit_oneswitch(index, layero){
+        var body = $.modal.getChildFrame(index);
+        let region = body.find('#region').val();
+        let ids = body.find('#idlist').val();
+        var url = prefix + "/oneswitch";
+        var data = { "ids": ids,"region":region };
         $.operate.submit(url, "post", "json", data);
         $.modal.close(index);
     }

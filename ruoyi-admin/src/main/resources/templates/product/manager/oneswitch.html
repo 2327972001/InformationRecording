@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('一键切换')" />
+</head>
+<body class="gray-bg">
+<div class="container-div">
+    <div class="row">
+        <form id="form-user-add" class="form-horizontal">
+            <div class="row">
+                <div class="col-sm-12" style="text-align: center;margin-top: 50px">
+                    <p>请输入您要切换的<b>地区</b>，不填则<b>不限制地区</b>切换</p>
+                </div>
+                <div class="col-sm-12">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label">地区：</label>
+                        <div class="col-sm-4">
+                            <input type="hidden" id="idlist">
+                            <input id="region" class="form-control" type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div th:include="include :: footer"></div>
+<script th:inline="javascript">
+    /* 提交 */
+    function submitHandler() {
+        var region = $("#region").val();
+        var idlist = $("#ids").val();
+        activeWindow().$('#regionvalue').val(region);
+        activeWindow().$('#productids').val(idlist);
+        $.modal.close();
+    }
+
+    $("#idlist").val(getUrlParam('ids'));
+
+    function getUrlParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+        var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+        if (r != null) return encodeURI(r[2]); return null; //返回参数值
+    }
+</script>
+</body>
+</html>
