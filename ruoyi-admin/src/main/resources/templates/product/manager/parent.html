@@ -72,46 +72,56 @@
 				{
 					field: 'id',
 					title: '商品id',
-					visible: false
+					visible: false,
+					align: "center"
 				},
 				{
 					field: 'elasticip',
-					title: '弹性IP'
+					title: '弹性IP',
+					align: "center"
 				},
 				{
 					field: 'httpport',
-					title: 'HHP'
+					title: 'HHP',
+					align: "center"
 				},
 				{
 					field: 'skport',
-					title: 'SK5'
+					title: 'SK5',
+					align: "center"
 				},
 				{
 					field: 'ltpport',
-					title: 'L2TP'
+					title: 'L2TP',
+					align: "center"
 				},
 				{
 					field: 'note',
-					title: '备注'
+					title: '备注',
+					align: "center"
 				},
 				{
 					field: 'bandwidth',
-					title: '带宽'
+					title: '带宽',
+					align: "center"
 				},
 				{
 					field: 'region',
-					title: '地区'
+					title: '地区',
+					align: "center"
 				},
 				{
 					field: 'status',
 					title: '状态',
+					align: "center",
 					formatter: function(value, row, index) {
 						return $.table.selectDictLabel(statusDatas, value);
 					}
 				},
 				{
 					field: 'category',
-					title: '项目类别'
+					title: '项目类别',
+					align: "center"
 				},
 				/*{
 					field: 'starttime',
