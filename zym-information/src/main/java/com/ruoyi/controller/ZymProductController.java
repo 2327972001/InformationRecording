@@ -407,4 +407,25 @@ public class ZymProductController extends BaseController
         }
         return success();
     }
+
+    @RequiresPermissions("product:manager:add")
+    @GetMapping("/adduserpwd")
+    public String adduserpwd()
+    {
+        return prefix + "/adduserpwd";
+    }
+
+    @RequiresPermissions("product:manager:add")
+    @PostMapping("/adduserpwd")
+    @ResponseBody
+    public AjaxResult adduserpwd(Integer[] ids,String username)
+    {
+        for (Integer id : ids) {
+            ZymProduct zymProduct = new ZymProduct();
+            zymProduct.setId(id);
+            zymProduct.setUsername(username);
+            zymProductService.updateZymProduct(zymProduct);
+        }
+        return success();
+    }
 }
