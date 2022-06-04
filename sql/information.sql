@@ -515,6 +515,7 @@ CREATE TABLE `sys_job` (
 INSERT INTO `sys_job` VALUES ('1', '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', '2022-06-02 14:11:47', '', null, '');
 INSERT INTO `sys_job` VALUES ('2', '系统默认（有参）', 'DEFAULT', 'ryTask.ryParams(\'ry\')', '0/15 * * * * ?', '3', '1', '1', 'admin', '2022-06-02 14:11:47', '', null, '');
 INSERT INTO `sys_job` VALUES ('3', '系统默认（多参）', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)', '0/20 * * * * ?', '3', '1', '1', 'admin', '2022-06-02 14:11:47', '', null, '');
+INSERT INTO `sys_job` VALUES ('4', '检测到期', 'DEFAULT', 'timingTask.start', '0 */1 * * * ?', '1', '1', '0', 'admin', '2022-06-04 15:20:43', '', '2022-06-04 15:20:46', '');
 
 -- ----------------------------
 -- Table structure for sys_job_log
