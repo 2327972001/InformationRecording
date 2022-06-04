@@ -846,13 +846,14 @@ CREATE TABLE `sys_user` (
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
+  `password_m` varchar(50) DEFAULT NULL COMMENT '明文密码',
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '你的明明呐丶', '00', '123456@qq.com', '15211111111', '0', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-06-03 00:01:23', '2022-06-02 14:11:47', 'admin', '2022-06-02 14:11:47', '', '2022-06-03 00:01:23', '管理员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '你的明明呐丶', '00', '123456@qq.com', '15211111111', '0', '', '29c67a30398638269fe600f73a054934', '111111', '0', '0', '127.0.0.1', '2022-06-03 00:01:23', '2022-06-02 14:11:47', 'admin', '2022-06-02 14:11:47', '', '2022-06-03 00:01:23', '管理员', '');
 
 -- ----------------------------
 -- Table structure for sys_user_online
