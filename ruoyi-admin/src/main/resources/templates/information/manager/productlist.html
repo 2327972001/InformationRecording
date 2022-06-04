@@ -216,10 +216,12 @@
             $.modal.alertWarning("请至少选择一条记录");
             return;
         }
-        var url = prefix + "/adduserid";
-        var data = { "ids": rows.join(),"uid":[[${userid}]] };
-        $.operate.submit(url, "post", "json", data);
-        $.modal.close(index);
+        $.modal.confirm("确认要添加吗?", function() {
+            var url = prefix + "/adduserid";
+            var data = {"ids": rows.join(), "uid": [[${userid}]]};
+            $.operate.submit(url, "post", "json", data);
+            $.modal.close(index);
+        });
     }
 
     function oneswitch(){
