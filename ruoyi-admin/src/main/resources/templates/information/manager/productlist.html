@@ -76,7 +76,7 @@
                 <i class="fa fa-plus"></i> 增加2个月
             </a>
             <a class="btn btn-success multiple disabled" onclick="addtime3()" shiro:hasPermission="product:manager:edit">
-                <i class="fa fa-plus"></i> 增加3个月
+                <i class="fa fa-plus"></i> 减少1个月
             </a>
             <a class="btn btn-primary multiple disabled" onclick="addUserPwd()" shiro:hasPermission="product:manager:edit">
                 <i class="fa fa-plus"></i> 设置账号密码
@@ -244,8 +244,10 @@
         let ids = body.find('#idlist').val();
         var url = prefix + "/oneswitch";
         var data = { "ids": ids,"region":region };
-        $.operate.submit(url, "post", "json", data);
-        $.modal.close(index);
+        $.modal.confirm("确认要一键切换吗?", function() {
+            $.operate.submit(url, "post", "json", data);
+            $.modal.close(index);
+        });
     }
 
     function p_edit(id) {
@@ -293,7 +295,9 @@
             return;
         }
         let url = prefix + "/addtime?ids="+rows.join()+"&time=1";
-        $.operate.submit(url, "get");
+        $.modal.confirm("确认要增加时间吗?", function() {
+            $.operate.submit(url, "get");
+        });
     }
     function addtime2(){
         var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
@@ -302,7 +306,9 @@
             return;
         }
         let url = prefix + "/addtime?ids="+rows.join()+"&time=2";
-        $.operate.submit(url, "get");
+        $.modal.confirm("确认要增加时间吗?", function() {
+            $.operate.submit(url, "get");
+        });
     }
     function addtime3(){
         var rows = $.common.isEmpty(table.options.uniqueId) ? $.table.selectFirstColumns() : $.table.selectColumns(table.options.uniqueId);
@@ -311,7 +317,9 @@
             return;
         }
         let url = prefix + "/addtime?ids="+rows.join()+"&time=3";
-        $.operate.submit(url, "get");
+        $.modal.confirm("确认要减少时间吗?", function() {
+            $.operate.submit(url, "get");
+        });
     }
 
     function addUserPwd(){
@@ -334,8 +342,10 @@
         let ids = body.find('#idlist').val();
         var url = prefix + "/adduserpwd";
         var data = { "ids": ids,"username":username };
-        $.operate.submit(url, "post", "json", data);
-        $.modal.close(index);
+        $.modal.confirm("确认要设置账号密码吗?", function() {
+            $.operate.submit(url, "post", "json", data);
+            $.modal.close(index);
+        });
     }
 </script>
 </body>
