@@ -29,6 +29,11 @@ public class TimingTaskImpl {
                 zymProduct1.setId(zymProduct.getId());
                 zymProduct1.setStatus("1");
                 zymProductService.updateZymProduct(zymProduct1);
+            }else{
+                ZymProduct zymProduct1 = new ZymProduct();
+                zymProduct1.setId(zymProduct.getId());
+                zymProduct1.setStatus("0");
+                zymProductService.updateZymProduct(zymProduct1);
             }
         }
     }
