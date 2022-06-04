@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
 <head>
-	<th:block th:include="include :: header('产品列表')" />
+	<th:block th:include="include :: header('选择产品')" />
 </head>
 <body class="gray-bg">
      <input type="hidden" id="rowIds">
@@ -36,7 +36,10 @@
 							</li>
 							<li>
 								<label>项目类别：</label>
-								<input type="text" name="category"/>
+								<select name="category">
+									<option value="">所有</option>
+									<option th:each="Classification : ${ClassificationList}" th:text="${Classification.name}" th:value="${Classification.name}"></option>
+								</select>
 							</li>
 							<li>
 								<a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>

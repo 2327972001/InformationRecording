@@ -291,8 +291,9 @@ public class ZymProductController extends BaseController
 
     @RequiresPermissions("product:manager:view")
     @GetMapping("/parent")
-    public String parent()
+    public String parent(ModelMap mmap)
     {
+        mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/parent";
     }
 
