@@ -18,10 +18,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <result property="starttime"    column="starttime"    />
         <result property="endtime"    column="endtime"    />
         <result property="free"    column="free"    />
+        <result property="httpport"    column="httpport"    />
+        <result property="skport"    column="skport"    />
+        <result property="ltpport"    column="ltpport"    />
     </resultMap>
 
     <sql id="selectZymProductVo">
-        select id, cid, uid, elasticip, note, bandwidth, region, status, category, username, starttime, endtime, free from zym_product
+        select id, cid, uid, elasticip, note, bandwidth, region, status, category, username, starttime, endtime, free, httpport, skport, ltpport from zym_product
     </sql>
 
     <select id="selectZymProductList" parameterType="ZymProduct" resultMap="ZymProductResult">
@@ -39,6 +42,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starttime != null "> and starttime = #{starttime}</if>
             <if test="endtime != null "> and endtime = #{endtime}</if>
             <if test="free != null and free!=''"> and free = #{free}</if>
+            <if test="httpport != null  and httpport != ''"> and httpport = #{httpport}</if>
+            <if test="skport != null  and skport != ''"> and skport = #{skport}</if>
+            <if test="ltpport != null  and ltpport != ''"> and ltpport = #{ltpport}</if>
         </where>
     </select>
     
@@ -62,6 +68,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starttime != null">starttime,</if>
             <if test="endtime != null">endtime,</if>
             <if test="free != null">free,</if>
+            <if test="httpport != null">httpport,</if>
+            <if test="skport != null">skport,</if>
+            <if test="ltpport != null">ltpport,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="cid != null">#{cid},</if>
@@ -76,6 +85,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starttime != null">#{starttime},</if>
             <if test="endtime != null">#{endtime},</if>
             <if test="free != null">#{free},</if>
+            <if test="httpport != null">#{httpport},</if>
+            <if test="skport != null">#{skport},</if>
+            <if test="ltpport != null">#{ltpport},</if>
          </trim>
     </insert>
 
@@ -94,6 +106,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="starttime != null">starttime = #{starttime},</if>
             <if test="endtime != null">endtime = #{endtime},</if>
             <if test="free != null and free!=''">free = #{free},</if>
+            <if test="httpport != null">httpport = #{httpport},</if>
+            <if test="skport != null">skport = #{skport},</if>
+            <if test="ltpport != null">ltpport = #{ltpport},</if>
         </trim>
         where id = #{id}
     </update>

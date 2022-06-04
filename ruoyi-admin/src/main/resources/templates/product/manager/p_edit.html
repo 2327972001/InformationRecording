@@ -72,6 +72,24 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">端口HTTP：</label>
+                <div class="col-sm-8">
+                    <input name="httpport" th:field="*{httpport}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">sk5端口：</label>
+                <div class="col-sm-8">
+                    <input name="skport" th:field="*{skport}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">端口L2TP：</label>
+                <div class="col-sm-8">
+                    <input name="ltpport" th:field="*{ltpport}" class="form-control" type="text">
+                </div>
+            </div>
         </form>
     </div>
     <th:block th:include="include :: footer" />

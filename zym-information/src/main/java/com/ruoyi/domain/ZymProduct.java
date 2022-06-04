@@ -67,6 +67,15 @@ public class ZymProduct extends BaseEntity
     /** 空闲状态 */
     private String free;
 
+    /** 端口HTTP */
+    private String httpport;
+
+    /** sk5端口 */
+    private String skport;
+
+    /** 端口L2TP */
+    private String ltpport;
+
     public void setId(Integer id)
     {
         this.id = id;
@@ -185,6 +194,34 @@ public class ZymProduct extends BaseEntity
         return free;
     }
 
+    public void setHttpport(String httpport)
+    {
+        this.httpport = httpport;
+    }
+
+    public String getHttpport()
+    {
+        return httpport;
+    }
+    public void setSkport(String skport)
+    {
+        this.skport = skport;
+    }
+
+    public String getSkport()
+    {
+        return skport;
+    }
+    public void setLtpport(String ltpport)
+    {
+        this.ltpport = ltpport;
+    }
+
+    public String getLtpport()
+    {
+        return ltpport;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
@@ -201,6 +238,9 @@ public class ZymProduct extends BaseEntity
                 .append("endtime", getEndtime())
                 .append("status", getStatus())
                 .append("free", getFree())
+                .append("httpport", getHttpport())
+                .append("skport", getSkport())
+                .append("ltpport", getLtpport())
                 .toString();
     }
 }
