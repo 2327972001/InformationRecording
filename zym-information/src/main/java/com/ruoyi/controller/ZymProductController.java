@@ -390,18 +390,47 @@ public class ZymProductController extends BaseController
         for (Integer id : ids) {
             ZymProduct zymProduct = new ZymProduct();
             zymProduct.setId(id);
-            zymProduct.setStarttime(new Date());
+            Date date = new Date();
+            if(zymProductService.selectZymProductById(id).getStarttime()==null){
+                zymProduct.setStarttime(date);
+            }
             if(time==1){
-                //当前时间加30天
-                zymProduct.setEndtime(DateUtils.addDays(new Date(),30));
+                if(zymProductService.selectZymProductById(id).getEndtime() == null){
+                    //当前时间加30天
+                    zymProduct.setEndtime(DateUtils.addDays(date,30));
+                }else{
+                    //如果当前时间大于到期时间
+                    if (date.getTime() > zymProductService.selectZymProductById(id).getEndtime().getTime()) {
+                        //结束时间加30天
+                        zymProduct.setEndtime(DateUtils.addDays(date,30));
+                    }else{
+                        //到前时间加30天
+                        zymProduct.setEndtime(DateUtils.addDays(zymProductService.selectZymProductById(id).getEndtime(),30));
+                    }
+                }
             }
             if(time==2){
-                //当前时间加60天
-                zymProduct.setEndtime(DateUtils.addDays(new Date(),60));
+                if(zymProductService.selectZymProductById(id).getEndtime() == null){
+                    //当前时间加60天
+                    zymProduct.setEndtime(DateUtils.addDays(date,60));
+                }else{
+                    //如果当前时间大于到期时间
+                    if (date.getTime() > zymProductService.selectZymProductById(id).getEndtime().getTime()) {
+                        //结束时间加30天
+                        zymProduct.setEndtime(DateUtils.addDays(date,60));
+                    }else{
+                        //到前时间加30天
+                        zymProduct.setEndtime(DateUtils.addDays(zymProductService.selectZymProductById(id).getEndtime(),60));
+                    }
+                }
             }
             if(time==3){
-                //当前时间加60天
-                zymProduct.setEndtime(DateUtils.addDays(new Date(),90));
+                if(zymProductService.selectZymProductById(id).getEndtime() == null){
+                    error("日期为空，减少时间失败");
+                }else{
+                    //时间减30天
+                    zymProduct.setEndtime(DateUtils.addDays(zymProductService.selectZymProductById(id).getEndtime(),-30));
+                }
             }
             zymProductService.updateZymProduct(zymProduct);
         }
@@ -420,6 +449,10 @@ public class ZymProductController extends BaseController
     @ResponseBody
     public AjaxResult adduserpwd(Integer[] ids,String username)
     {
+        String[] user = username.split("/");
+        if(user.length!=2){
+            return error("用户名或密码不能为空");
+        }
         for (Integer id : ids) {
             ZymProduct zymProduct = new ZymProduct();
             zymProduct.setId(id);
