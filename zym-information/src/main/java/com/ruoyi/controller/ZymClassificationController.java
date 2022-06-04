@@ -156,6 +156,12 @@ public class ZymClassificationController extends BaseController
     @ResponseBody
     public AjaxResult editSave(ZymClassification zymClassification)
     {
+        List<ZymClassification> classificationsList = zymClassificationService.selectZymClassificationList(new ZymClassification());
+        for (ZymClassification classification : classificationsList) {
+            if (classification.getName().equals(zymClassification.getName())) {
+                return error("该项目类别已存在");
+            }
+        }
         return toAjax(zymClassificationService.updateZymClassification(zymClassification));
     }
 
