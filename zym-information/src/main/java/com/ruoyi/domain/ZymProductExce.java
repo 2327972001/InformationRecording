@@ -31,6 +31,42 @@ public class ZymProductExce extends BaseEntity
     @Excel(name = "项目类别")
     private String category;
 
+    /** 端口HTTP */
+    @Excel(name = "端口HTTP")
+    private String httpport;
+
+    /** sk5端口 */
+    @Excel(name = "SK5端口")
+    private String skport;
+
+    /** 端口L2TP */
+    @Excel(name = "端口L2TP")
+    private String ltpport;
+
+    public String getHttpport() {
+        return httpport;
+    }
+
+    public void setHttpport(String httpport) {
+        this.httpport = httpport;
+    }
+
+    public String getSkport() {
+        return skport;
+    }
+
+    public void setSkport(String skport) {
+        this.skport = skport;
+    }
+
+    public String getLtpport() {
+        return ltpport;
+    }
+
+    public void setLtpport(String ltpport) {
+        this.ltpport = ltpport;
+    }
+
     public String getElasticip() {
         return elasticip;
     }

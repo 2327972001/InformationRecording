@@ -68,12 +68,15 @@ public class ZymProduct extends BaseEntity
     private String free;
 
     /** 端口HTTP */
+    @Excel(name = "端口HTTP")
     private String httpport;
 
     /** sk5端口 */
+    @Excel(name = "SK5端口")
     private String skport;
 
     /** 端口L2TP */
+    @Excel(name = "端口L2TP")
     private String ltpport;
 
     public void setId(Integer id)
