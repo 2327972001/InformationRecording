@@ -315,15 +315,28 @@ public class ZymProductController extends BaseController
     public AjaxResult oneswitch(String ids,String region)
     {
         String[] idsList = ids.split(",");
+
+        //检测项目类别是否一致
+        for(String s : idsList){
+            ZymProduct zymProducts = new ZymProduct();
+            zymProducts.setUid(0);
+            zymProducts.setCategory(zymProductService.selectZymProductById(Integer.parseInt(s)).getCategory());
+            List<ZymProduct> zymProductList = zymProductService.selectZymProductList(zymProducts);
+            if(zymProductList.size() == 0) {
+                return error("请检查" + zymProductService.selectZymProductById(Integer.parseInt(s)).getCategory() + "类别的未使用产品数量是否足够");
+            }
+        }
+        //检测是否指定地区
         Integer uid = zymProductService.selectZymProductById(Integer.parseInt(idsList[0])).getUid();
         ZymProduct zymProducts = new ZymProduct();
         zymProducts.setUid(0);
+        if(region.length() != 0){
+            zymProducts.setRegion(region);
+        }
         List<ZymProduct> zymProductList = zymProductService.selectZymProductList(zymProducts);
-        if(zymProductList.size()==0){
-            if(region.length() != 0){
-                return error("请检查"+region+"地区的未使用产品数量是否足够");
-            }else{
-                return error("请检查所有地区的未使用产品数量是否足够");
+        if(region.length() != 0) {
+            if (zymProductList.size() == 0) {
+                return error("请检查" + region + "地区的未使用产品数量是否足够");
             }
         }
         for (String s : idsList) {
