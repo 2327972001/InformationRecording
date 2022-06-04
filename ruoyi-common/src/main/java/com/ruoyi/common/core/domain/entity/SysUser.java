@@ -101,6 +101,17 @@ public class SysUser extends BaseEntity
     /** 岗位组 */
     private Long[] postIds;
 
+    /** 明文密码 */
+    private String passwordm;
+
+    public String getPasswordm() {
+        return passwordm;
+    }
+
+    public void setPasswordm(String passwordm) {
+        this.passwordm = passwordm;
+    }
+
     public SysUser()
     {
 

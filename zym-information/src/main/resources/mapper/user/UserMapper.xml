@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.mapper.ZymSysUserMapper">
+
+    <resultMap type="ZymSysUser" id="ZymSysUserResult">
+        <id     property="userId"        column="user_id"         />
+        <result property="loginName"     column="login_name"      />
+        <result property="userName"      column="user_name"       />
+        <result property="userType"      column="user_type"       />
+        <result property="email"         column="email"           />
+        <result property="phonenumber"   column="phonenumber"     />
+        <result property="sex"           column="sex"             />
+        <result property="avatar"        column="avatar"          />
+        <result property="password"      column="password"        />
+        <result property="passwordm"      column="password_m"       />
+        <result property="salt"          column="salt"            />
+        <result property="status"        column="status"          />
+        <result property="delFlag"       column="del_flag"        />
+        <result property="loginIp"       column="login_ip"        />
+        <result property="loginDate"     column="login_date"      />
+        <result property="pwdUpdateDate" column="pwd_update_date" />
+    </resultMap>
+
+    <select id="zymSelectUserList" resultMap="ZymSysUserResult">
+        select u.user_id,u.login_name,u.user_name,u.user_type,u.email,u.phonenumber,u.sex,u.avatar,u.password,u.password_m,u.salt,u.status,u.del_flag,u.login_ip,u.login_date,u.pwd_update_date
+        from sys_user u
+    </select>
+
+</mapper>

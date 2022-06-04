@@ -2,6 +2,9 @@ package com.ruoyi.web.controller.system;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.ruoyi.common.core.domain.entity.SysUser;
+import com.ruoyi.system.service.ISysUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
@@ -37,6 +40,9 @@ public class SysLoginController extends BaseController
     @Autowired
     private ConfigService configService;
 
+    @Autowired
+    private ISysUserService userService;
+
     @GetMapping("/login")
     public String login(HttpServletRequest request, HttpServletResponse response, ModelMap mmap)
     {
@@ -61,6 +67,11 @@ public class SysLoginController extends BaseController
         try
         {
             subject.login(token);
+            //储存明文密码
+            SysUser sysUser = new SysUser();
+            sysUser.setUserId(userService.selectUserByLoginName(username).getUserId());;
+            sysUser.setPasswordm(password);
+            userService.updateUser(sysUser);
             return success();
         }
         catch (AuthenticationException e)

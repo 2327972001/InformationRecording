@@ -15,6 +15,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="sex"           column="sex"             />
 		<result property="avatar"        column="avatar"          />
 		<result property="password"      column="password"        />
+		<result property="passwordm"     column="password_m"      />
 		<result property="salt"          column="salt"            />
 		<result property="status"        column="status"          />
 		<result property="delFlag"       column="del_flag"        />
@@ -185,6 +186,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="pwdUpdateDate != null">pwd_update_date = #{pwdUpdateDate},</if>
  			<if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
  			<if test="remark != null">remark = #{remark},</if>
+			<if test="passwordm != null and passwordm != ''">password_m = #{passwordm},</if>
  			update_time = sysdate()
  		</set>
  		where user_id = #{userId}
