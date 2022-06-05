@@ -1,5 +1,7 @@
 package com.ruoyi.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import com.ruoyi.common.core.domain.entity.SysUser;
@@ -217,5 +219,24 @@ public class ZymProductServiceImpl implements IZymProductService
             successMsg.insert(0, "恭喜您，数据已全部导入成功！共 " + successNum + " 条，数据如下：");
         }
         return successMsg.toString();
+    }
+
+    /**
+     * 查询地区列表
+     * @return 地区列表
+     */
+    @Override
+    public List<String> selectRegionList() {
+        List<ZymProduct> zymProductList = zymProductMapper.selectZymProductList(new ZymProduct());
+        List<String> regions = new ArrayList<>();
+        for (ZymProduct zymProduct : zymProductList) {
+            regions.add(zymProduct.getRegion());
+        }
+        HashSet<String> regionsList = new HashSet<>(regions);
+        List<String> regionsLists = new ArrayList<>();
+        for (String s : regionsList) {
+            regionsLists.add(s);
+        }
+        return regionsLists;
     }
 }

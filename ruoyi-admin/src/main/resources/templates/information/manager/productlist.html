@@ -24,7 +24,10 @@
                         </li>
                         <li>
                             <label>地区：</label>
-                            <input type="text" name="region"/>
+                            <select name="region">
+                                <option value="">所有</option>
+                                <option th:each="region : ${regionList}" th:text="${region}" th:value="${region}"></option>
+                            </select>
                         </li>
                         <li>
                             <label>状态：</label>

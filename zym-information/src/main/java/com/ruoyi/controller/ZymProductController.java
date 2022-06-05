@@ -6,7 +6,6 @@ import com.ruoyi.common.utils.DateUtils;
 import com.ruoyi.domain.ZymClassification;
 import com.ruoyi.domain.ZymProductExce;
 import com.ruoyi.service.IZymClassificationService;
-import com.ruoyi.service.IZymInfoService;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -44,13 +43,12 @@ public class ZymProductController extends BaseController
     @Autowired
     private IZymClassificationService zymClassificationService;
 
-    @Autowired
-    private IZymInfoService zymInfoService;
-
     @RequiresPermissions("product:manager:view")
     @GetMapping()
-    public String manager()
+    public String manager(ModelMap mmap)
     {
+        mmap.addAttribute("regionList",zymProductService.selectRegionList());
+        mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/manager";
     }
 
@@ -312,6 +310,7 @@ public class ZymProductController extends BaseController
     @GetMapping("/parent")
     public String parent(ModelMap mmap)
     {
+        mmap.addAttribute("regionList",zymProductService.selectRegionList());
         mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/parent";
     }

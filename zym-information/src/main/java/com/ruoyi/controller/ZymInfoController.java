@@ -162,6 +162,7 @@ public class ZymInfoController extends BaseController
     public String productlist(@PathVariable("id") Integer id, ModelMap mmap)
     {
         mmap.addAttribute("userid", id);
+        mmap.addAttribute("regionList",zymProductService.selectRegionList());
         mmap.addAttribute("ClassificationList",zymClassificationService.selectZymClassificationList(new ZymClassification()));
         return prefix + "/productlist";
     }

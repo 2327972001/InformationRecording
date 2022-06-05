@@ -2,7 +2,6 @@ package com.ruoyi.service;
 
 import java.util.List;
 
-import com.ruoyi.common.core.domain.entity.SysUser;
 import com.ruoyi.domain.ZymProduct;
 
 /**
@@ -69,4 +68,9 @@ public interface IZymProductService
      * @return 结果
      */
     public String importProduct(List<ZymProduct> zymProductList, Boolean isUpdateSupport);
+
+    /**
+     * 查询地区列表
+     */
+    public List<String> selectRegionList();
 }

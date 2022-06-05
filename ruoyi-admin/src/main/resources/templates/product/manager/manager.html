@@ -24,7 +24,10 @@
                             </li>
                             <li>
                                 <label>地区：</label>
-                                <input type="text" name="region"/>
+                                <select name="region">
+                                    <option value="">所有</option>
+                                    <option th:each="region : ${regionList}" th:text="${region}" th:value="${region}"></option>
+                                </select>
                             </li>
                             <li>
                                 <label>空闲状态：</label>
@@ -35,7 +38,10 @@
                             </li>
                             <li>
                                 <label>项目类别：</label>
-                                <input type="text" name="category"/>
+                                <select name="category">
+                                    <option value="">所有</option>
+                                    <option th:each="Classification : ${ClassificationList}" th:text="${Classification.name}" th:value="${Classification.name}"></option>
+                                </select>
                             </li>
                             <li>
                                 <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
