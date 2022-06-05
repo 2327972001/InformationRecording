@@ -56,6 +56,9 @@
                 <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="product:manager:remove">
                     <i class="fa fa-remove"></i> 删除
                 </a>
+                <a class="btn btn-danger" onclick="remove_clean()" shiro:hasPermission="monitor:manager:remove">
+                    <i class="fa fa-trash"></i> 清空
+                </a>
                 <a class="btn btn-info" onclick="$.table.importExcel()" shiro:hasPermission="system:manager:import">
                     <i class="fa fa-upload"></i> 导入
                 </a>
@@ -176,6 +179,20 @@
             };
             $.table.init(options);
         });
+
+        function remove_clean(){
+            var dataParam = $("#formId").serializeArray();
+            $.modal.confirm("确定删除当前列表所有数据吗？", function() {
+                $.post(prefix + "/remove_clean", dataParam, function(result) {
+                    if(result.code === 500){
+                        $.modal.alertError(result.msg);
+                    }else{
+                        $.modal.alertSuccess(result.msg);
+                        $("#" + table.options.id).bootstrapTable('removeAll');
+                    }
+                });
+            });
+        }
     </script>
 </body>
 <!-- 导入区域 -->

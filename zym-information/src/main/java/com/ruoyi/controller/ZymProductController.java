@@ -266,6 +266,26 @@ public class ZymProductController extends BaseController
     }
 
     /**
+     * 删除查询的产品列表
+     */
+    @RequiresPermissions("product:manager:remove")
+    @Log(title = "产品列表", businessType = BusinessType.DELETE)
+    @PostMapping( "/remove_clean")
+    @ResponseBody
+    public AjaxResult remove_clean(ZymProduct zymProduct)
+    {
+        List<ZymProduct> zymProductList = zymProductService.selectZymProductList(zymProduct);
+        if(zymProductList.size() > 0){
+            for (int i = 0; i < zymProductList.size(); i++) {
+                zymProductService.deleteZymProductById(zymProductList.get(i).getId());
+            }
+            return success("成功删除"+zymProductList.size()+"条数据");
+        }else{
+            return error("删除失败，不能删除空列表");
+        }
+    }
+
+    /**
      * 移除产品
      */
     @RequiresPermissions("product:manager:detach")
